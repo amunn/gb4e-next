@@ -1,0 +1,58 @@
+\def\gbnext@version{0.5}
+\def\gbnext@date{2024-10-27}
+% gb4e-next is a package which provdes gb4e users two relative example reference commands. \Next refers to the next 
+% example in the document and \Prev refers to the previous example. No explicit label command is required.
+%
+% Copyright 2024 by Alan Munn
+%
+% This package may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This package has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this package is Alan Munn.
+%
+% This package consists of the file gb4e-next.sty and documentation files                
+% gb4e-next.tex and gb4e-next.pdf.
+%
+% This package is currently experimental. Use at your own risk.
+%
+\ProvidesPackage{gb4e-next}[\gbnext@date\ Provides relative example reference to gb4e v. \gbnext@version ]
+\RequirePackage{gb4e}
+\DeclareKeys[gb4e-next]{
+fn.store = \gbnext@fnformat
+}
+\SetKeys[gb4e-next]{fn=roman}
+\ProcessKeyOptions[gb4e-next]
+\newcounter{gb@tmpcnt}
+\NewDocumentCommand{\Next}{o}{%
+\IfNoValueTF{#1}%
+{\save@exx}%
+{\save@exx[#1]}%
+\stepcounter{gb@tmpcnt}\printExNo}
+\NewDocumentCommand{\Prev}{o}{%
+\IfNoValueTF{#1}%
+{\save@exx}%
+{\save@exx[#1]}%
+\printExNo}
+\NewDocumentCommand{\save@exx}{o}{%
+\if@noftnote%
+\setcounter{gb@tmpcnt}{\value{exx}}%
+\IfNoValueTF{#1}%
+{\def\thegb@tmpcnt{\arabic{gb@tmpcnt}}}% default format of printed number
+{\def\thegb@tmpcnt{\csname#1\endcsname{gb@tmpcnt}}}%
+\else%
+\setcounter{gb@tmpcnt}{\value{fnx}}%
+\IfNoValueTF{#1}%
+{\def\thegb@tmpcnt{\csname\gbnext@fnformat\endcsname{gb@tmpcnt}}}% default format of printed number
+{\def\thegb@tmpcnt{\csname#1\endcsname{gb@tmpcnt}}}%
+\fi}
+\newcommand\printExNo{(\thegb@tmpcnt)}
+\endinput
+
+

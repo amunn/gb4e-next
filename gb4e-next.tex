@@ -1,0 +1,97 @@
+% !TEX TS-program = lualatexmk
+\def\gbnextversion{0.5}
+\def\gbnextdate{October 27, 2024}
+\documentclass[11pt]{article}
+\title{\textbf{The \textsf{gb4e-next} package}}
+\author{\textbf{Alan Munn}\\Department of Linguistics, Languages, and Cultures\\Michigan State University\\\texttt{\href{mailto:amunn@msu.edu}{amunn@msu.edu}}}
+\date{Version \gbnextversion\\\gbnextdate}
+\usepackage[margin=.5in,includefoot]{geometry}
+\usepackage{fontspec}
+\setmonofont[Scale=MatchLowercase]{DejaVu Sans Mono}
+\usepackage{titling}
+\usepackage{array, booktabs, multicol, fancyhdr, xspace,tabularx}
+\usepackage{enumitem}
+\usepackage{fancyvrb,listings,url}
+\usepackage[sf,compact]{titlesec}
+\usepackage[colorlinks=true]{hyperref}
+
+
+\DefineShortVerb{\|}
+\newcommand*\bs{\textbackslash}
+
+  
+\lstset{%
+    basicstyle=\ttfamily\small,
+    commentstyle=\itshape\ttfamily\small,
+    keywordstyle={},
+    showspaces=false,
+    showstringspaces=false,
+    breaklines=true,
+    breakautoindent=true,
+    breakindent=1em,
+    xrightmargin=2.5em,
+    captionpos=t,
+    frame=tl,
+    language=TeX,
+}
+  
+\newcommand*{\pkg}[1]{\texttt{#1}\xspace}
+\setitemize[1]{label={}}
+\setitemize[2]{label={}}
+\setdescription{font={\normalfont}}
+\setlength{\droptitle}{-1in}
+
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{\emph{}}
+\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\pagestyle{fancy}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\renewcommand{\abstractname}{\sffamily Abstract}
+\abstract{\noindent\begin{quote}This package provides relative example referencing commands |\Next| and |\Prev| to \pkg{gb4e} users.\end{quote}}
+
+\section{Package usage}
+Usage of the package is simple: simply load it alongside \pkg{gb4e}. The commands |\Next| which refers to the next example in the text and |\Prev| which refers to the previous example in the text, will then be made available.
+\subsection{Package options}
+The package has a single key-value option |fn| to specify the default format for the commands when used inside a footnote. The \pkg{gb4e} package defaults to arabic numbering of examples in footnotes unless the |{xlisti}| environment is explicitly used. Since the package can’t know this, you need to specify the default format for relative reference inside a footnote.  Possible values are |arabic| (default), |roman|, |Roman|, |alph|, and |Alph|.  The most likely choice in most cases will be either the default or |roman|.
+\subsection{Package commands}
+The package provides two commands: |\Next[<format>]| which refers to the next example and |\Prev[<format>]| which refers to the previous example. The optional |[<format>]| argument allows you to specify a specific format for the number. Possible values are |arabic|, |roman|, |Roman|, |alph|, and |Alph|.  The most likely choice in most cases will be either the default or |roman|.  If you have specified a format for the |fn| option, this will be used automatically, so there will usually be no need for the optional argument.
+\section{Example}
+Here’s an example of how to use the package:
+
+\begin{quote}
+\begin{lstlisting}
+\documentclass{article}
+\usepackage{gb4e}
+\usepackage[fn=roman]{gb4e-next}
+\begin{document}
+This is the reference to  example \Next.
+\begin{exe}
+\ex An example
+\end{exe}
+
+This is reference to example \Next.
+
+\begin{exe}
+\ex Another example
+\end{exe}
+This contains a footnote\footnote{This is a footnote with an example. We can refer to it as \Next. \begin{xlisti}\ex A footnote example\end{xlisti}} And this is a reference to the previous example: \Prev
+\end{document}
+\end{lstlisting}
+\end{quote}
+
+
+\section{Bugs and support}
+This is \emph{experimental} and has not been extensively tested. Use at your own risk. You're welcome to raise issues at the \href{https://github.com/amunn/gb4e-next}{GitHub repository}, however.
+\section{Version history}
+This is the initial version of the package (0.5).
+
+\end{document}
