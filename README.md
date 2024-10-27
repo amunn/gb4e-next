@@ -1,3 +1,5 @@
+ # The `gb4e-next` package
+ 
  The `gb4e-next`  package  provides `gb4e` users two relative example reference commands. `\Next` refers to the next 
  example in the document and `\Prev` refers to the previous example. No explicit label command is required.
 

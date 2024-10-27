@@ -1,6 +1,6 @@
 \def\gbnext@version{0.5}
 \def\gbnext@date{2024-10-27}
-% gb4e-next is a package which provdes gb4e users two relative example reference commands. \Next refers to the next 
+% The gb4e-next package  provides gb4e users two relative example reference commands. \Next refers to the next 
 % example in the document and \Prev refers to the previous example. No explicit label command is required.
 %
 % Copyright 2024 by Alan Munn
@@ -29,12 +29,12 @@ fn.store = \gbnext@fnformat
 }
 \SetKeys[gb4e-next]{fn=roman}
 \ProcessKeyOptions[gb4e-next]
-\newcounter{gb@tmpcnt}
+\newcounter{gbnext@tmpcnt}
 \NewDocumentCommand{\Next}{o}{%
 \IfNoValueTF{#1}%
 {\save@exx}%
 {\save@exx[#1]}%
-\stepcounter{gb@tmpcnt}\printExNo}
+\stepcounter{gbnext@tmpcnt}\printExNo}
 \NewDocumentCommand{\Prev}{o}{%
 \IfNoValueTF{#1}%
 {\save@exx}%
@@ -42,17 +42,17 @@ fn.store = \gbnext@fnformat
 \printExNo}
 \NewDocumentCommand{\save@exx}{o}{%
 \if@noftnote%
-\setcounter{gb@tmpcnt}{\value{exx}}%
+\setcounter{gbnext@tmpcnt}{\value{exx}}%
 \IfNoValueTF{#1}%
-{\def\thegb@tmpcnt{\arabic{gb@tmpcnt}}}% default format of printed number
-{\def\thegb@tmpcnt{\csname#1\endcsname{gb@tmpcnt}}}%
+{\def\thegbnext@tmpcnt{\arabic{gbnext@tmpcnt}}}% default format of printed number
+{\def\thegbnext@tmpcnt{\csname#1\endcsname{gbnext@tmpcnt}}}%
 \else%
-\setcounter{gb@tmpcnt}{\value{fnx}}%
+\setcounter{gbnext@tmpcnt}{\value{fnx}}%
 \IfNoValueTF{#1}%
-{\def\thegb@tmpcnt{\csname\gbnext@fnformat\endcsname{gb@tmpcnt}}}% default format of printed number
-{\def\thegb@tmpcnt{\csname#1\endcsname{gb@tmpcnt}}}%
+{\def\thegbnext@tmpcnt{\csname\gbnext@fnformat\endcsname{gbnext@tmpcnt}}}% default format of printed number
+{\def\thegbnext@tmpcnt{\csname#1\endcsname{gbnext@tmpcnt}}}%
 \fi}
-\newcommand\printExNo{(\thegb@tmpcnt)}
+\newcommand\printExNo{(\thegbnext@tmpcnt)}
 \endinput
 
 
